@@ -1,0 +1,82 @@
+.containerTablesPage {
+  height: 100vh;
+  background-color: #ffde59;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  position: relative;
+  font-family: sans-serif;
+}
+
+.tablesList {
+  width: 100%;
+  max-width: 320px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tableCard {
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tableCard strong {
+  font-size: 16px;
+  color: #000;
+}
+
+.tableCard p {
+  font-size: 14px;
+  color: #4CAF50;
+  margin: 0;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+.cardActions svg {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cardActions svg:hover {
+  transform: scale(1.2);
+}
+
+/* Botão flutuante */
+.addButton {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f78e3d;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.addButton:hover {
+  background-color: #e5762c;
+}

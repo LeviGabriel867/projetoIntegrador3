@@ -4,7 +4,13 @@ import logoLoginPage from "../../assets/logoLoginPage.png";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaLock } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function LoginPage() {
+  const navigate = useNavigate();
+  const handleHomePage = () => {
+    navigate("/homePage");
+  };
+
   return (
     <div className="loginPage">
       <h1>ChefControl</h1>
@@ -26,7 +32,15 @@ function LoginPage() {
             <input type="password" placeholder="Senha" />
           </div>
 
-          <button className="loginButton">Entrar</button>
+          <button
+            className="loginButton"
+            onClick={(e) => {
+              e.preventDefault();
+              handleHomePage();
+            }}
+          >
+            Entrar
+          </button>
         </form>
       </div>
     </div>

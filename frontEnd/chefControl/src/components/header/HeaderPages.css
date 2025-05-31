@@ -1,0 +1,19 @@
+.containerHeaderPages {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.containerHeaderPages h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+}
+
+.containerHeaderPages p {
+  font-size: 16px;
+  color: #f78e3d;
+  margin: 0;
+  font-weight: 600;
+}
