@@ -22,6 +22,9 @@ function FormPage() {
             setPedidoEnviado(false); 
         }, 2000);
     };
+    const handleEmployeeManagement = () => {
+        navigate("/profileAdm");
+    }
 
     return (
         <div className='ConteinerFormPage'>
@@ -38,6 +41,7 @@ function FormPage() {
                     </div>
                     <button type="submit" onClick={chamarAnimação}>Adicionar pedido</button>
                     <button type="submit" onClick={handleTablesPage}>Visualizar pedidos</button>
+                    <button type="submit" onClick={handleEmployeeManagement}>Gerenciar colaboradores</button>
                 </form>
 
                 {pedidoEnviado && (

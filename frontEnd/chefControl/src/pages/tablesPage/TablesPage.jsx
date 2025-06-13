@@ -1,9 +1,17 @@
 import HeaderPages from "../../components/header/HeaderPages";
 import { FaPen, FaCheck, FaTrash } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
 import "./TablesPage.css";
 
 function TablesPage() {
+
+  const navigate = useNavigate();
+
+    const handleTablesPage = () => {
+        navigate("/formPage");
+    };
   const tables = [
     { id: 1, name: "Mesa 1", order: "1 pizza  calabresa, 1 pepsi 1L" },
     { id: 2, name: "Mesa 2", order: "1 pizza  calabresa, 1 pepsi 1L" },
@@ -30,7 +38,7 @@ function TablesPage() {
       </div>
 
       <button className="addButton">
-        <IoMdAdd />
+        <IoMdAdd onClick={handleTablesPage} />
       </button>
     </div>
   );
