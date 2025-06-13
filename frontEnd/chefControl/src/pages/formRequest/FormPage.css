@@ -66,3 +66,41 @@ form button {
 form button:hover {
   background-color: #e5782c;
 }
+
+.mensagem-enviada {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    animation: fadeInOut 2s ease-in-out forwards;
+}
+
+.icone-check {
+    font-size: 20px;
+    color: #28a745;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
