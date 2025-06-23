@@ -1,8 +1,9 @@
+// domain/entities/User.js
+
 export default class User {
-  constructor(id, name, email, role) {
+   constructor(id, email, password) {
     this.id = id;
-    this.name = name;
     this.email = email;
-    this.role = role;
+    this.password = password;
   }
 }
