@@ -7,6 +7,7 @@ const FormPage = lazy(() => import('../pages/formRequest/FormPage.jsx'));
 const TablesPage = lazy(() => import('../pages/tablesPage/TablesPage.jsx'));
 const ProfileAdm = lazy(() => import('../pages/employeeManagement/profileAdm/ProfileAdm.jsx'));
 const FormEmployee = lazy(() => import('../pages/employeeManagement/employeeRegistration/employeeRegistration.jsx'))
+import AllEmployeePage from '../pages/employeeManagement/allEmployeePage/AllEmployeePage.jsx';  
 function AppRoutes(){
     return(
         <Suspense fallback={<div>Loading...</div>}>
@@ -17,6 +18,7 @@ function AppRoutes(){
                 <Route path='/tablesPage' element={<TablesPage/>}/>
                 <Route path='/profileAdm' element={<ProfileAdm/>}/>
                 <Route path='/formEmployee' element={<FormEmployee/>}/>
+                <Route path='/allEmployeePage' element={<AllEmployeePage/>}/>
             </Routes>
         </Suspense>
     )

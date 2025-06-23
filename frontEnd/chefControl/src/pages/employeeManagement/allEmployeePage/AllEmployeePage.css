@@ -1,0 +1,158 @@
+/* src/pages/AllEmployeePage/AllEmployeePage.css */
+
+/*
+  As variáveis CSS (Custom Properties) são mantidas pois são uma excelente
+  prática para consistência do design em qualquer tamanho de tela.
+*/
+:root {
+  --primary-bg-color: #fdd85d;
+  --card-bg-color: #f0f0f0;
+  --text-primary-color: #1a1a1a;
+  --text-secondary-color: #e58d4a;
+  --fab-color: #f76c5e;
+  --fab-text-color: #ffffff;
+  --icon-color: #555555;
+  --delete-icon-hover-color: #e74c3c;
+  --border-radius: 12px; /* Reduzido para um visual mais web */
+  --card-padding: 20px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Reset básico e fontes */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--primary-bg-color);
+}
+
+/*
+  ATUALIZAÇÃO 1: O container principal agora ocupa a largura disponível
+  e tem um padding padrão para páginas web.
+*/
+.all-employee-page {
+  /* max-width, border e border-radius de celular foram removidos */
+  width: 100%;
+  min-height: 100vh;
+  padding: 3rem 4rem; /* Mais espaçamento horizontal para telas maiores */
+}
+
+.page-header {
+  /* O alinhamento à esquerda é mais comum em layouts de desktop */
+  text-align: left;
+  margin-bottom: 2.5rem; /* Mais espaço vertical */
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-primary-color);
+}
+
+.page-header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-secondary-color);
+}
+
+/*
+  ATUALIZAÇÃO 2: A lista de funcionários agora é uma grade.
+  - display: grid; ativa o layout de grade.
+  - grid-template-columns: cria colunas automáticas que se ajustam.
+    Cada coluna terá no mínimo 340px e ocupará o espaço de forma igual.
+  - gap: define o espaçamento entre as linhas e colunas da grade.
+*/
+.employee-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.employee-item {
+  background-color: var(--card-bg-color);
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--box-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.employee-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.employee-item__info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.employee-item__avatar {
+  color: var(--icon-color);
+}
+
+.employee-item__name {
+  font-weight: 500;
+  color: var(--text-primary-color);
+  font-size: 1.1rem;
+}
+
+.employee-item__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--icon-color);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.action-button:hover {
+  color: var(--text-primary-color);
+}
+
+.action-button--delete:hover {
+  color: var(--delete-icon-hover-color);
+}
+
+/*
+  ATUALIZAÇÃO 3: O FAB agora é fixo na tela (viewport).
+  Ele ficará no canto inferior direito mesmo com a rolagem da página.
+*/
+.fab {
+  position: fixed; /* Fixo em relação à janela do navegador */
+  bottom: 3rem;
+  right: 4rem;
+  width: 60px;
+  height: 60px;
+  background-color: var(--fab-color);
+  color: var(--fab-text-color);
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.fab:hover {
+  background-color: #e55a4b;
+  transform: scale(1.08);
+}
