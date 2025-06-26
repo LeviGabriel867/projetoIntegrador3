@@ -9,11 +9,15 @@
   font-weight: bold;
   color: #000;
   margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+
 }
 
 .containerHeaderPages p {
   font-size: 16px;
   color: #f78e3d;
   margin: 0;
-  font-weight: 600;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  margin-top: 15px;
 }

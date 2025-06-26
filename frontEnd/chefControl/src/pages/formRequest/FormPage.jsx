@@ -41,7 +41,7 @@ function FormPage() {
                     </div>
                     <button type="submit" onClick={chamarAnimação}>Adicionar pedido</button>
                     <button type="submit" onClick={handleTablesPage}>Visualizar pedidos</button>
-                    <button type="submit" onClick={handleEmployeeManagement}>Gerenciar colaboradores</button>
+                    {/*<button type="submit" onClick={handleEmployeeManagement}>Gerenciar colaboradores</button   NAO TEM MAIS</button>*/}
                 </form>
 
                 {pedidoEnviado && (

@@ -6,20 +6,30 @@ import User from '../../../domain/entities/User.js';
 export default class UserRepositoryMongo {
   async create(userData) {
     const userDocument = await UserModel.create(userData);
-    return new User(userDocument._id, userDocument.email, userDocument.password);
+    // Este método já estava correto!
+    return new User(userDocument._id, userDocument.name, userDocument.userName, userDocument.role, userDocument.email, userDocument.password);
   }
 
+  // CORREÇÃO AQUI
   async findByEmail(email) {
     const userDocument = await UserModel.findOne({ email: email });
     if (!userDocument) return null;
-    return new User(userDocument._id, userDocument.email, userDocument.password);
+    // Passe todos os campos para o construtor
+    return new User(userDocument._id, userDocument.name, userDocument.userName, userDocument.role, userDocument.email, userDocument.password);
   }
 
-  // NOVO MÉTODO: Busca o usuário e força a inclusão da senha
+  // CORREÇÃO AQUI
   async findByEmailWithPassword(email) {
-    // Usamos .select('+password') para trazer a senha, que está oculta por padrão
     const userDocument = await UserModel.findOne({ email: email }).select('+password');
     if (!userDocument) return null;
-    return new User(userDocument._id, userDocument.email, userDocument.password);
+    // Passe todos os campos para o construtor
+    return new User(userDocument._id, userDocument.name, userDocument.userName, userDocument.role, userDocument.email, userDocument.password);
+  }
+
+  // MÉTODO BÔNUS (RECOMENDADO): Como o userName também é único, você deve ter um método para buscar por ele também.
+  async findByUserName(userName) {
+    const userDocument = await UserModel.findOne({ userName: userName });
+    if (!userDocument) return null;
+    return new User(userDocument._id, userDocument.name, userDocument.userName, userDocument.role, userDocument.email, userDocument.password);
   }
 }

@@ -1,1 +1,0 @@
-// Middleware for JWT authentication

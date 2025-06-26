@@ -1,4 +1,4 @@
-// src/use-cases/user/LoginUser.js
+// use-cases/user/LoginUser.js (EXEMPLO)
 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -9,30 +9,31 @@ export default class LoginUser {
   }
 
   async execute({ email, password }) {
-    if (!email || !password) {
-      throw new Error('Email e senha são obrigatórios.');
-    }
-
-    // 1. Encontra o usuário no banco (incluindo a senha)
     const user = await this.userRepository.findByEmailWithPassword(email);
     if (!user) {
-      throw new Error('Credenciais inválidas.'); // Mensagem genérica por segurança
+      throw new Error('Credenciais inválidas.');
     }
 
-    // 2. Compara a senha enviada com o hash salvo no banco
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
-      throw new Error('Credenciais inválidas.'); // Mesma mensagem genérica
+      throw new Error('Credenciais inválidas.');
     }
 
-    // 3. Se as senhas baterem, gera um token JWT
-    const token = jwt.sign(
-      { id: user.id, email: user.email }, // Informações que irão dentro do token (payload)
-      'SEU_SEGREDO_SUPER_SECRETO_AQUI',   // Chave secreta (MUITO IMPORTANTE!)
-      { expiresIn: '8h' }                 // Tempo de expiração do token
-    );
+    // Payload do token agora com mais informações
+    const payload = {
+      id: user.id,
+      name: user.name,
+      userName: user.userName,
+      role: user.role,
+      email: user.email,
+    };
 
-    // 4. Retorna o token
-    return { token };
+    const token = jwt.sign(payload, 'SEU_SEGREDO_SUPER_SECRETO_AQUI', { expiresIn: '8h' });
+
+    // Retorna o token e também os dados do usuário para o frontend não precisar fazer outra chamada
+    return { 
+      token, 
+      user: payload 
+    };
   }
 }

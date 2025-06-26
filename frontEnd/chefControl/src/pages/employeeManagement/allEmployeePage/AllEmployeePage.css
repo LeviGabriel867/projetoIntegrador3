@@ -1,9 +1,4 @@
-/* src/pages/AllEmployeePage/AllEmployeePage.css */
 
-/*
-  As variáveis CSS (Custom Properties) são mantidas pois são uma excelente
-  prática para consistência do design em qualquer tamanho de tela.
-*/
 :root {
   --primary-bg-color: #fdd85d;
   --card-bg-color: #f0f0f0;
@@ -13,12 +8,12 @@
   --fab-text-color: #ffffff;
   --icon-color: #555555;
   --delete-icon-hover-color: #e74c3c;
-  --border-radius: 12px; /* Reduzido para um visual mais web */
+  --border-radius: 12px; 
   --card-padding: 20px;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Reset básico e fontes */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -31,21 +26,16 @@ body {
   background-color: var(--primary-bg-color);
 }
 
-/*
-  ATUALIZAÇÃO 1: O container principal agora ocupa a largura disponível
-  e tem um padding padrão para páginas web.
-*/
 .all-employee-page {
-  /* max-width, border e border-radius de celular foram removidos */
+
   width: 100%;
   min-height: 100vh;
-  padding: 3rem 4rem; /* Mais espaçamento horizontal para telas maiores */
+  padding: 3rem 4rem; 
 }
 
 .page-header {
-  /* O alinhamento à esquerda é mais comum em layouts de desktop */
   text-align: left;
-  margin-bottom: 2.5rem; /* Mais espaço vertical */
+  margin-bottom: 2.5rem; 
 }
 
 .page-header h1 {
@@ -59,13 +49,7 @@ body {
   color: var(--text-secondary-color);
 }
 
-/*
-  ATUALIZAÇÃO 2: A lista de funcionários agora é uma grade.
-  - display: grid; ativa o layout de grade.
-  - grid-template-columns: cria colunas automáticas que se ajustam.
-    Cada coluna terá no mínimo 340px e ocupará o espaço de forma igual.
-  - gap: define o espaçamento entre as linhas e colunas da grade.
-*/
+
 .employee-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -130,10 +114,7 @@ body {
   color: var(--delete-icon-hover-color);
 }
 
-/*
-  ATUALIZAÇÃO 3: O FAB agora é fixo na tela (viewport).
-  Ele ficará no canto inferior direito mesmo com a rolagem da página.
-*/
+ 
 .fab {
   position: fixed; /* Fixo em relação à janela do navegador */
   bottom: 3rem;

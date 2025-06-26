@@ -1,3 +1,5 @@
+// src/pages/loginPage/LoginPage.jsx
+
 import React, { useState } from "react";
 import "./LoginPage.css";
 import logoLoginPage from "../../assets/logoLoginPage.png";
@@ -7,57 +9,48 @@ import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const navigate = useNavigate();
-
-  // 1. Estado para controlar o modo (true = Login, false = Criar Conta)
-  const [isLoginMode, setIsLoginMode] = useState(true);
-
-  // Estados do formulário e de feedback
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // 2. Função para alternar entre os modos
-  const toggleMode = () => {
-    setIsLoginMode((prevMode) => !prevMode);
-    // Limpa os campos e mensagens ao trocar de modo
-    setEmail("");
-    setPassword("");
-    setError("");
-    setSuccess("");
-  };
-
-  // 3. Função única de submit que decide o que fazer com base no modo
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-    setSuccess("");
 
-    const endpoint = isLoginMode ? "/login" : "/users";
-    const url = `http://localhost:3000/api${endpoint}`; // Substitua 3001 pela sua porta
+    const url = `http://localhost:3000/api/login`;
+    const payload = { email, password };
 
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Ocorreu um erro.");
+        throw new Error(data.error || "Ocorreu um erro no login.");
       }
 
-      // 4. Lógica de sucesso diferente para cada modo
-      if (isLoginMode) {
+      if (data.token && data.user) {
         localStorage.setItem("token", data.token);
-        navigate("/homePage"); // Redireciona para a área logada
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // --- ATUALIZAÇÃO AQUI ---
+        // Verificando a role "admin" para redirecionar
+        if (data.user.role === "admin") {
+          navigate("/admin"); // Redireciona para a página de admin
+        } else if (data.user.role === "garcom") {
+          navigate("/waiter"); // Redireciona para a página do garçom
+        } else {
+          // Fallback para uma página genérica, se necessário
+          navigate("/homePage");
+        }
       } else {
-        setSuccess("Conta criada com sucesso! Agora você pode fazer o login.");
-        setIsLoginMode(true); // Muda para o modo de login automaticamente
+        throw new Error("Resposta de login inválida do servidor.");
       }
     } catch (err) {
       setError(err.message);
@@ -74,13 +67,11 @@ function LoginPage() {
       </div>
 
       <div className="formLoginPage">
-        {/* 5. Título dinâmico */}
-        <h2>{isLoginMode ? "Entre com seu acesso" : "Crie sua conta"}</h2>
+        <h2>Entre com seu acesso</h2>
 
         {error && <p className="login-error-message">{error}</p>}
-        {success && <p className="login-success-message">{success}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="inputEmail">
             <HiOutlineMail />
             <input
@@ -106,24 +97,9 @@ function LoginPage() {
           </div>
 
           <button type="submit" className="loginButton" disabled={isLoading}>
-            {/* 6. Texto do botão dinâmico */}
-            {isLoading
-              ? "Processando..."
-              : isLoginMode
-              ? "Entrar"
-              : "Criar Conta"}
+            {isLoading ? "Entrando..." : "Entrar"}
           </button>
         </form>
-
-        {/* 7. Botão/Link para alternar o modo */}
-        <div className="toggle-mode-container">
-          <p>
-            {isLoginMode ? "Não tem uma conta?" : "Já tem uma conta?"}
-            <button type="button" onClick={toggleMode} className="toggle-mode-button">
-              {isLoginMode ? "Crie uma aqui" : "Entre aqui"}
-            </button>
-          </p>
-        </div>
       </div>
     </div>
   );

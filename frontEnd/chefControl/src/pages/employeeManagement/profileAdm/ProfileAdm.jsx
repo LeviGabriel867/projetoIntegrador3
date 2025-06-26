@@ -5,7 +5,7 @@ import "./ProfileAdm.css";
 function ProfileAdm() {
     const navigate = useNavigate();
     const handleFormEmployee = () => {
-        navigate("/formEmployee");
+        navigate("/admin/create-employee");
     }
     
     return (
