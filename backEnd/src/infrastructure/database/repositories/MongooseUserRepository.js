@@ -2,7 +2,7 @@
 import UserModel from '../models/UserModel.js';
 import User from '../../../domain/entities/User.js';
 
-export default class UserRepositoryMongo {
+export default class MongooseUserRepository {
   async create(userData) {
     const userDocument = await UserModel.create(userData);
     // Este método já estava correto!

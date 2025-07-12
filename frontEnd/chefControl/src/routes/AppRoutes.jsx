@@ -19,27 +19,23 @@ function AppRoutes() {
   return (
     <Suspense fallback={<div style={{textAlign: 'center', marginTop: '50px'}}>Carregando...</div>}>
       <Routes>
-        {/* Rotas Públicas */}
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
         
-        {/* --- ROTAS PROTEGIDAS PARA O ADMIN --- */}
-        {/* --- ATUALIZAÇÃO AQUI --- */}
+       
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<ProfileAdm />} />
           <Route path="/admin/create-employee" element={<FormEmployee />} />
           <Route path="/admin/all-employees" element={<AllEmployeePage />} />
         </Route>
 
-        {/* --- ROTAS PROTEGIDAS PARA O GARÇOM (E ADMIN TAMBÉM PODE ACESSAR) --- */}
-        {/* --- ATUALIZAÇÃO AQUI --- */}
+       
         <Route element={<ProtectedRoute allowedRoles={["garcom", "admin"]} />}>
           <Route path="/waiter" element={<FormPage />} />
           <Route path="/waiter/tables" element={<TablesPage />} />
         </Route>
 
-        {/* Rota genérica ou de fallback */}
         <Route path="/homePage" element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

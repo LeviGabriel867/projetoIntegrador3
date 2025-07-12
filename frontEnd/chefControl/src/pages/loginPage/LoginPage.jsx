@@ -19,7 +19,7 @@ function LoginPage() {
     setIsLoading(true);
     setError("");
 
-    const url = `http://localhost:3000/api/login`;
+    const url = `${import.meta.env.VITE_API_URL}/api/login`;
     const payload = { email, password };
 
     try {
