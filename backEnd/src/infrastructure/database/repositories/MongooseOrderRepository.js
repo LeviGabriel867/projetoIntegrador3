@@ -24,6 +24,25 @@ export default class MongooseOrderRepository {
       throw error;
     }
   }
-  
-  // ... outros métodos
+    
+    /**
+   * Busca todos os pedidos que estão com status 'EM_ESPERA' ou 'PREPARANDO'.
+   * @returns {Promise<Order[]>}
+   */
+  async findActiveOrders() {
+    try {
+      // Usamos o operador $in do MongoDB para buscar documentos
+      // cujo valor de 'status' esteja dentro do array fornecido.
+      const activeStatuses = ["EM_ESPERA", "PREPARANDO"];
+      const ordersFromDB = await OrderModel.find({
+        status: { $in: activeStatuses }
+      }).exec();
+
+      // Mapeia para a entidade de domínio, como você já faz corretamente
+      return ordersFromDB.map(order => new Order(order._id, order.mesa, order.descricao, order.status));
+    } catch (error) {
+      console.error('❌ [REPOSITÓRIO] ERRO AO BUSCAR PEDIDOS ATIVOS:', error);
+      throw error;
+    }
+  }
 }

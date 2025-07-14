@@ -3,8 +3,8 @@ export class IOrderRepository {
     throw new Error("Método 'create' não implementado.");
   }
 
-  async findAll() {
-    throw new Error("Método 'findAll' não implementado.");
+  async findAllOrders(order) {
+    throw new Error("Método 'findAllOrders' não implementado.");
   }
 
   async updateStatus(orderId, status) {

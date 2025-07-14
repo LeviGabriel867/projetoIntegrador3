@@ -1,3 +1,6 @@
+*{
+  background-color: #ffde59;
+}
 .containerTablesPage {
   height: 100vh;
   background-color: #ffde59;
@@ -31,12 +34,15 @@
 .tableCard strong {
   font-size: 16px;
   color: #000;
+  background-color: #f1f1f1;
 }
 
 .tableCard p {
   font-size: 14px;
   color: #4CAF50;
   margin: 0;
+    background-color: #f1f1f1;
+
 }
 
 .cardActions {
@@ -44,6 +50,8 @@
   justify-content: flex-end;
   gap: 15px;
   margin-top: 8px;
+    background-color: #f1f1f1;
+
 }
 
 .cardActions svg {
@@ -51,6 +59,8 @@
   color: #333;
   cursor: pointer;
   transition: transform 0.2s;
+    background-color: #f1f1f1;
+
 }
 
 .cardActions svg:hover {
@@ -79,4 +89,32 @@
 
 .addButton:hover {
   background-color: #e5762c;
+}
+/* ... seu CSS existente ... */
+
+/* Estilo para a tag de status */
+.statusBadge {
+  align-self: flex-start; /* Alinha no início do card */
+  background-color: #4caf50; /* Verde, cor do parágrafo */
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+/* Estilos para mensagens de feedback */
+.loadingMessage,
+.errorMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: sans-serif;
+  font-size: 18px;
+  color: #333;
+}
+.errorMessage {
+  color: #d32f2f; /* Cor vermelha para erros */
 }

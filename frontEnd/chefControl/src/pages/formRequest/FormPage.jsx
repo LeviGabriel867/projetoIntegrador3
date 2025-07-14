@@ -91,7 +91,7 @@ function FormPage() {
           </button>
         </form>
 
-        <button onClick={handleTablesPage}>
+        <button className="buttonOrder" onClick={handleTablesPage}>
           Visualizar pedidos
         </button>
 
