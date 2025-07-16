@@ -6,7 +6,7 @@ import { FaPen, FaCheck, FaTrash } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-import "./TablesPage.css"; 
+import "./TablesPage.css";
 
 function TablesPage() {
   const [orders, setOrders] = useState([]);
@@ -19,14 +19,20 @@ function TablesPage() {
     navigate("/formPage");
   };
 
-  const handleConcludeOrder = async (orderId) => {
+  const handleAdvanceStatus = async (orderId) => {
     try {
       // CORREÇÃO 1: Adicionado o prefixo /api na URL
-      await fetch(`http://localhost:3000/api/orders/${orderId}/conclude`, {
-        method: 'PATCH',
-      });
+      await fetch(
+        `http://localhost:3000/api/orders/${orderId}/advance-status`,
+        {
+          method: "PATCH",
+        }
+      );
     } catch (err) {
-      console.error("Falha ao enviar comando para concluir o pedido:", err);
+      console.error(
+        "Falha ao enviar comando para avançar o status do pedido:",
+        err
+      );
     }
   };
 
@@ -50,20 +56,24 @@ function TablesPage() {
     fetchInitialOrders();
 
     // CORREÇÃO 3: URL do EventSource corrigida para a rota de stream e com o prefixo /api
-    const eventSource = new EventSource("http://localhost:3000/api/orders/stream");
+    const eventSource = new EventSource(
+      "http://localhost:3000/api/orders/stream"
+    );
 
     eventSource.onmessage = (event) => {
-        console.log('MENSAGEM SSE RECEBIDA!', event.data);
+      console.log("MENSAGEM SSE RECEBIDA!", event.data);
 
       const updatedOrder = JSON.parse(event.data);
-        console.log('PEDIDO PROCESSADO:', updatedOrder);
+      console.log("PEDIDO PROCESSADO:", updatedOrder);
 
-      setOrders(prevOrders => {
-        if (updatedOrder.status === 'FINALIZADO') {
-          return prevOrders.filter(order => order.id !== updatedOrder.id);
+      setOrders((prevOrders) => {
+        if (updatedOrder.status === "FINALIZADO") {
+          return prevOrders.filter((order) => order.id !== updatedOrder.id);
         }
 
-        const existingOrderIndex = prevOrders.findIndex(order => order.id === updatedOrder.id);
+        const existingOrderIndex = prevOrders.findIndex(
+          (order) => order.id === updatedOrder.id
+        );
 
         if (existingOrderIndex > -1) {
           const newOrders = [...prevOrders];
@@ -102,10 +112,14 @@ function TablesPage() {
             <div className="tableCard" key={order.id}>
               <strong>Mesa {order.mesa}</strong>
               <p>{order.descricao}</p>
-              <div className="statusBadge">{order.status}</div>
+              <div
+                className={`statusBadge statusBadge--${order.status.toLowerCase()}`}
+              >
+                {order.status}
+              </div>
               <div className="cardActions">
                 <FaPen />
-                <FaCheck onClick={() => handleConcludeOrder(order.id)} />
+                <FaCheck onClick={() => handleAdvanceStatus(order.id)} />
                 <FaTrash />
               </div>
             </div>

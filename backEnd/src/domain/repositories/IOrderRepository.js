@@ -8,4 +8,7 @@ export class IOrderRepository {
   async update(orderId, updateData) {
     throw new Error("Método 'update' não implementado.");
   }
+  async findById(orderId) {
+    throw new Error("Método 'findById' não implementado.");
+  }
 }

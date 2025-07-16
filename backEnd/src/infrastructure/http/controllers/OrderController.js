@@ -1,8 +1,12 @@
 export default class OrderController {
-  constructor(createOrderUseCase, getActiveOrdersUseCase, concludeOrderUseCase) {
+  constructor(
+    createOrderUseCase,
+    getActiveOrdersUseCase,
+    advanceOrderStatusUseCase
+  ) {
     this.createOrderUseCase = createOrderUseCase;
     this.getActiveOrdersUseCase = getActiveOrdersUseCase;
-    this.concludeOrderUseCase = concludeOrderUseCase;
+    this.advanceOrderStatusUseCase = advanceOrderStatusUseCase;
   }
 
   async create(request, response) {
@@ -24,10 +28,10 @@ export default class OrderController {
     }
   }
 
-  async conclude(request, response) {
+  async advanceStatus(request, response) {
     try {
       const { id } = request.params;
-      await this.concludeOrderUseCase.execute(id);
+      await this.advanceOrderStatusUseCase.execute(id); // Chama o novo use case
       return response.status(204).send();
     } catch (error) {
       return response.status(400).json({ message: error.message });

@@ -93,9 +93,19 @@
 /* ... seu CSS existente ... */
 
 /* Estilo para a tag de status */
-.statusBadge {
+.statusBadge--em_espera {
   align-self: flex-start; /* Alinha no início do card */
   background-color: #4caf50; /* Verde, cor do parágrafo */
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+.statusBadge--preparando {
+  align-self: flex-start; /* Alinha no início do card */
+  background-color: #ff9800; /* Laranja, cor do parágrafo */
   color: white;
   padding: 3px 8px;
   border-radius: 10px;
