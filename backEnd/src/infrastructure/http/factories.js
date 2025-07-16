@@ -1,20 +1,30 @@
-// src/infra/http/factories.js
+// Este arquivo é responsável por criar e "conectar" todas as peças da nossa aplicação.
+import OrderController from './controllers/OrderController.js';
+import MongooseOrderRepository from '../database/repositories/MongooseOrderRepository.js';
+import CreateOrderUseCase from '../../domain/use-cases/createOrder/CreateOrderUseCase.js';
+import GetActiveOrdersUseCase from '../../domain/use-cases/createOrder/GetActiveOrdersUseCase.js';
+import ConcludeOrderUseCase from '../../domain/use-cases/concludeOrder/ConcludeOrderUseCase.js';
+import { configureOrderRoutes } from './routes/orderRoutes.js';
 
-import { MongooseOrderRepository } from '../database/repositories/MongooseOrderRepository.js';
-import { CreateOrderUseCase } from '../../domain/use-cases/createOrder/CreateOrderUseCase.js';
-import { OrderController } from './controllers/OrderController.js';
+export const setupFactories = () => {
+  // 1. Criar a instância do Repositório (a camada de dados)
+  const orderRepository = new MongooseOrderRepository();
 
-// 1. Instanciar o Repositório
-const mongooseOrderRepository = new MongooseOrderRepository();
+  // 2. Criar as instâncias dos Casos de Uso, injetando o repositório
+  const createOrderUseCase = new CreateOrderUseCase(orderRepository);
+  const getActiveOrdersUseCase = new GetActiveOrdersUseCase(orderRepository);
+  const concludeOrderUseCase = new ConcludeOrderUseCase(orderRepository);
 
-// 2. Instanciar os Casos de Uso com o repositório
-const createOrderUseCase = new CreateOrderUseCase(mongooseOrderRepository);
-// const listOrdersUseCase = new ListOrdersUseCase(mongooseOrderRepository);
-// const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(mongooseOrderRepository);
+  // 3. Criar a instância do Controller, injetando os casos de uso
+  const orderController = new OrderController(
+    createOrderUseCase,
+    getActiveOrdersUseCase,
+    concludeOrderUseCase
+  );
 
-// 3. Instanciar o Controller com os casos de uso
-// Quando tiver mais casos de uso, passe-os para o construtor do controller.
-const orderController = new OrderController(createOrderUseCase);
+  // 4. Configurar as rotas, injetando o controller
+  const orderRoutes = configureOrderRoutes(orderController);
 
-// Exportamos a instância pronta para ser usada nas rotas.
-export { orderController };
+  // Retorna o roteador pronto para ser usado pelo app.js
+  return { orderRoutes };
+};

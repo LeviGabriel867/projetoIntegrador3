@@ -1,39 +1,43 @@
-// infrastructure/http/routes/orderRoutes.js (exemplo de caminho de arquivo)
+import { Router } from 'express';
+import { orderEvents } from '../../../domain/use-cases/createOrder/CreateOrderUseCase.js';
 
-import express from 'express';
+// Esta função recebe o controller já pronto da factory
+export const configureOrderRoutes = (orderController) => {
+  const router = Router();
 
-// 1. Importações (garanta que os caminhos estejam corretos)
-import MongooseOrderRepository from '../../database/repositories/MongooseOrderRepository.js';
-import CreateOrderUseCase from '../../../domain/use-cases/createOrder/CreateOrderUseCase.js';
-import GetActiveOrdersUseCase from '../../../domain/use-cases/createOrder/GetActiveOrdersUseCase.js'; // <- IMPORTADO
-import OrderController from '../controllers/OrderController.js';
+  // Rotas de Comandos e Consultas (permanecem iguais)
+  router.post('/orders', (req, res) => orderController.create(req, res));
+  router.get('/orders/active', (req, res) => orderController.getActiveOrders(req, res));
+  router.patch('/orders/:id/conclude', (req, res) => orderController.conclude(req, res));
 
-const router = express.Router();
+  // --- Rota de Streaming (SSE) - CORREÇÃO APLICADA AQUI ---
+  router.get('/orders/stream', (req, res) => {
+    // 1. CONFIGURA OS HEADERS CORRETOS PARA SSE
+    //    Isso diz ao navegador: "Estou enviando um fluxo de eventos, não um JSON".
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    
+    // 2. ENVIA OS HEADERS IMEDIATAMENTE PARA O CLIENTE
+    //    Isso "abre" o canal de comunicação.
+    res.flushHeaders();
 
-// --- Montando as Dependências ---
+    // Função que será chamada quando um evento acontecer no nosso sistema
+    const listener = (updatedOrder) => {
+      // Formata a mensagem no padrão SSE (data: {json}\n\n) e a envia
+      res.write(`data: ${JSON.stringify(updatedOrder)}\n\n`);
+    };
 
-// 2. Instanciando o Repositório (com nome claro)
-const orderRepository = new MongooseOrderRepository();
+    // "Inscreve" a função para ouvir o evento 'orderUpdated'
+    orderEvents.on('orderUpdated', listener);
 
-// 3. Instanciando AMBOS os Casos de Uso, injetando o repositório
-const createOrderUseCase = new CreateOrderUseCase(orderRepository);
-const getActiveOrdersUseCase = new GetActiveOrdersUseCase(orderRepository); // <- INSTANCIADO
+    // Quando o cliente fecha a conexão (ex: fecha a aba do navegador)
+    req.on('close', () => {
+      // Remove o ouvinte para evitar vazamento de memória (memory leak)
+      orderEvents.removeListener('orderUpdated', listener);
+      res.end(); // Encerra a resposta do lado do servidor
+    });
+  });
 
-// 4. Instanciando o Controller com TODAS as suas dependências
-const orderController = new OrderController(
-  createOrderUseCase,
-  getActiveOrdersUseCase // <- INJETADO NO CONTROLLER
-);
-
-// --- Definindo as Rotas ---
-
-// Rota para criar um pedido (continua igual e correta)
-router.post('/orders', (req, res) => orderController.create(req, res));
-
-// 5. Rota GET para buscar pedidos ativos
-//    - Aponta para um endpoint mais descritivo
-//    - Chama o método correto no controller
-router.get('/orders/active', (req, res) => orderController.getActiveOrders(req, res));
-
-
-export default router;
+  return router;
+};

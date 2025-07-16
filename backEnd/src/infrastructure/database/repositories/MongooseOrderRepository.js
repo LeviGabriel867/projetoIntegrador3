@@ -1,47 +1,43 @@
-
-
 import OrderModel from "../models/OrderModel.js";
 import Order from "../../../domain/entities/Order.js";
+import { IOrderRepository } from "../../../domain/repositories/IOrderRepository.js";
 
-export default class MongooseOrderRepository {
+export default class MongooseOrderRepository extends IOrderRepository {
   async create(orderData) {
-
     try {
       const newOrder = await OrderModel.create({
         mesa: orderData.mesa,
         descricao: orderData.descricao,
-        status: orderData.status,
+        status: 'EM_ESPERA',
       });
-
-
-      // O 'newOrder' do Mongoose terá um _id. O 'id' do Mongoose é um getter para o _id.
-      // Vamos garantir que estamos criando a entidade de volta com o ID do banco.
-      return new Order(newOrder._id, newOrder.mesa, newOrder.descricao, newOrder.status);
-
+      return new Order(newOrder.id, newOrder.mesa, newOrder.descricao, newOrder.status);
     } catch (error) {
-      console.error('❌ [REPOSITÓRIO] ERRO AO SALVAR NO MONGODB:', error);
-      // É crucial relançar o erro ou lidar com ele para que as camadas superiores saibam.
+      console.error("❌ [REPOSITÓRIO] ERRO AO CRIAR NO MONGODB:", error);
       throw error;
     }
   }
-    
-    /**
-   * Busca todos os pedidos que estão com status 'EM_ESPERA' ou 'PREPARANDO'.
-   * @returns {Promise<Order[]>}
-   */
-  async findActiveOrders() {
-    try {
-      // Usamos o operador $in do MongoDB para buscar documentos
-      // cujo valor de 'status' esteja dentro do array fornecido.
-      const activeStatuses = ["EM_ESPERA", "PREPARANDO"];
-      const ordersFromDB = await OrderModel.find({
-        status: { $in: activeStatuses }
-      }).exec();
 
-      // Mapeia para a entidade de domínio, como você já faz corretamente
-      return ordersFromDB.map(order => new Order(order._id, order.mesa, order.descricao, order.status));
+  async find(filters = {}) {
+    try {
+      const ordersFromDB = await OrderModel.find(filters).sort({ createdAt: -1 }).exec();
+      return ordersFromDB.map(
+        (order) => new Order(order.id, order.mesa, order.descricao, order.status)
+      );
     } catch (error) {
-      console.error('❌ [REPOSITÓRIO] ERRO AO BUSCAR PEDIDOS ATIVOS:', error);
+      console.error("❌ [REPOSITÓRIO] ERRO AO BUSCAR NO MONGODB:", error);
+      throw error;
+    }
+  }
+
+  async update(id, updateData) {
+    try {
+      const updatedOrderFromDB = await OrderModel.findByIdAndUpdate(id, updateData, { new: true });
+      if (!updatedOrderFromDB) {
+        return null;
+      }
+      return new Order(updatedOrderFromDB.id, updatedOrderFromDB.mesa, updatedOrderFromDB.descricao, updatedOrderFromDB.status);
+    } catch (error) {
+      console.error("❌ [REPOSITÓRIO] ERRO AO ATUALIZAR NO MONGODB:", error);
       throw error;
     }
   }

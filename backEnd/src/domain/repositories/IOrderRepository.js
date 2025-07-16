@@ -1,13 +1,11 @@
 export class IOrderRepository {
-  async create(order) {
+  async create(orderData) {
     throw new Error("Método 'create' não implementado.");
   }
-
-  async findAllOrders(order) {
-    throw new Error("Método 'findAllOrders' não implementado.");
+  async find(filters) {
+    throw new Error("Método 'find' não implementado.");
   }
-
-  async updateStatus(orderId, status) {
-    throw new Error("Método 'updateStatus' não implementado.");
+  async update(orderId, updateData) {
+    throw new Error("Método 'update' não implementado.");
   }
 }
