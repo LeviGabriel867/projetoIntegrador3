@@ -120,7 +120,6 @@ function TablesPage() {
               <div className="cardActions">
                 <FaPen />
                 <FaCheck onClick={() => handleAdvanceStatus(order.id)} />
-                <FaTrash />
               </div>
             </div>
           ))

@@ -1,9 +1,13 @@
+// src/pages/formRequest/FormPage.jsx (VERSÃO CORRIGIDA)
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderPages from "../../components/header/HeaderPages";
 import { MdOutlineTableBar } from "react-icons/md";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+
 import "./FormPage.css";
 
 function FormPage() {
@@ -16,6 +20,15 @@ function FormPage() {
   });
   const [error, setError] = useState("");
 
+  const handleLogout = () => {
+
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    navigate("/login");
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setOrder((prev) => ({
@@ -27,7 +40,6 @@ function FormPage() {
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     setError("");
-
 
     const url = `${import.meta.env.VITE_API_URL}/api/orders`;
 
@@ -45,7 +57,7 @@ function FormPage() {
       }
 
       setPedidoEnviado(true);
-      setOrder({ mesa: "", descricao: "" }); // limpa os campos
+      setOrder({ mesa: "", descricao: "" });
 
       setTimeout(() => {
         setPedidoEnviado(false);
@@ -62,6 +74,10 @@ function FormPage() {
   return (
     <div className="ConteinerFormPage">
       <HeaderPages h1Header="ChefControl" pHeader="Pedidos" />
+      
+      {/* O ícone de Home agora chama a função de logout corrigida */}
+      <FaHome onClick={handleLogout} className="logoutIcon" /> 
+
       <div className="ContainerFormRequests">
         <form onSubmit={handleSubmitOrder} className="formRequest">
           <div className="inputGroup">
@@ -86,9 +102,7 @@ function FormPage() {
               onChange={handleInputChange}
             />
           </div>
-          <button type="submit">
-            Adicionar pedido
-          </button>
+          <button type="submit">Adicionar pedido</button>
         </form>
 
         <button className="buttonOrder" onClick={handleTablesPage}>
@@ -101,9 +115,6 @@ function FormPage() {
             Pedido Enviado!
           </div>
         )}
-
-        {/* Você pode exibir o erro, se quiser */}
-        {/* {error && <p className="erro-envio">{error}</p>} */}
       </div>
     </div>
   );
