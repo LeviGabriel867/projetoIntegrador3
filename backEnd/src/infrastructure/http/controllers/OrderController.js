@@ -2,12 +2,14 @@ export default class OrderController {
   constructor(
     createOrderUseCase,
     getActiveOrdersUseCase,
-    advanceOrderStatusUseCase
+    advanceOrderStatusUseCase,
+    updateOrderUseCase
   ) {
     this.createOrderUseCase = createOrderUseCase;
     this.getActiveOrdersUseCase = getActiveOrdersUseCase;
     this.advanceOrderStatusUseCase = advanceOrderStatusUseCase;
-  }
+    this.updateOrderUseCase = updateOrderUseCase;
+    }
 
   async create(request, response) {
     try {
@@ -34,6 +36,24 @@ export default class OrderController {
       await this.advanceOrderStatusUseCase.execute(id); // Chama o novo use case
       return response.status(204).send();
     } catch (error) {
+      return response.status(400).json({ message: error.message });
+    }
+  }
+
+   async update(request, response) {
+    try {
+      // LOG DE DEPURACAO NO PONTO DE ENTRADA
+      console.log(`[CONTROLLER] Requisição PATCH recebida para o ID: ${request.params.id}`);
+
+      const { id } = request.params;
+      const updateData = request.body;
+      
+      await this.updateOrderUseCase.execute(id, updateData);
+      
+      return response.status(204).send();
+    } catch (error) {
+      // LOG DE DEPURACAO DO ERRO
+      console.error(`[CONTROLLER] Erro no método update:`, error);
       return response.status(400).json({ message: error.message });
     }
   }

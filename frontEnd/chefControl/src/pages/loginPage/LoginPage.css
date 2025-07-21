@@ -16,8 +16,10 @@
   z-index: 2;
 }
 
+
 /* Título */
 .loginPage h1 {
+  background-color: #ffc928;
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 3.5rem;
@@ -35,14 +37,19 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 }
-
+.loginForm{
+    background-color: #fff7e6;
+}
+.loginForm svg{
+background-color: transparent;
+}
 .formLoginPage {
   background-color: #fff7e6;
   padding: 3rem 2rem 2rem;
   border-radius: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 350px;
+  width: 100%;
+  max-width: 650px;
   margin-top: 2.5rem;
   position: relative;
   z-index: 1;
@@ -52,6 +59,7 @@
   color: #e65c00;
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
+  background-color: white;
   text-align: center;
 }
 
@@ -89,7 +97,7 @@
   font-size: 1.2rem;
 }
 .loginButton {
-  width: 50%;
+  width: 30%;
   display: flex;
   margin: 0 auto;
   align-items: center;
@@ -126,4 +134,13 @@
 
 .loginButton:hover {
   background-color: #cc5200;
+}
+@media (max-width: 400px) {
+  .formLoginPage {
+    width: 85%;
+    padding: 2rem 1rem;
+  }
+  .loginButton {
+    width: 80%;
+  }
 }

@@ -4,6 +4,7 @@ import MongooseOrderRepository from '../database/repositories/MongooseOrderRepos
 import CreateOrderUseCase from '../../domain/use-cases/createOrder/CreateOrderUseCase.js';
 import GetActiveOrdersUseCase from '../../domain/use-cases/createOrder/GetActiveOrdersUseCase.js';
 import AdvanceOrderStatusUseCase  from '../../domain/use-cases/advanceOrderStatus/AdvanceOrderStatusUseCase.js';
+import UpdateOrderUseCase from '../../domain/use-cases/updateOrder/UpdateOrder.js';
 import { configureOrderRoutes } from './routes/orderRoutes.js';
 
 export const setupFactories = () => {
@@ -11,14 +12,15 @@ export const setupFactories = () => {
 
   const createOrderUseCase = new CreateOrderUseCase(orderRepository);
   const getActiveOrdersUseCase = new GetActiveOrdersUseCase(orderRepository);
-  // Instancia o novo Use Case
   const advanceOrderStatusUseCase = new AdvanceOrderStatusUseCase(orderRepository);
+  const updateOrderUseCase = new UpdateOrderUseCase(orderRepository); // <<< INSTANCIAR
 
   // Injeta o novo Use Case no Controller
   const orderController = new OrderController(
     createOrderUseCase,
     getActiveOrdersUseCase,
-    advanceOrderStatusUseCase // Passando o novo caso de uso
+    advanceOrderStatusUseCase,
+    updateOrderUseCase
   );
 
   const orderRoutes = configureOrderRoutes(orderController);

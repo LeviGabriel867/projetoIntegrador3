@@ -13,6 +13,10 @@ import "./FormPage.css";
 function FormPage() {
   const navigate = useNavigate();
 
+  const handleHome = () => {
+    navigate("/login");
+  };
+
   const [pedidoEnviado, setPedidoEnviado] = useState(false);
   const [order, setOrder] = useState({
     mesa: "",
@@ -21,8 +25,6 @@ function FormPage() {
   const [error, setError] = useState("");
 
   const handleLogout = () => {
-
-
     localStorage.removeItem("user");
     localStorage.removeItem("token");
 
@@ -73,10 +75,10 @@ function FormPage() {
 
   return (
     <div className="ConteinerFormPage">
-      <HeaderPages h1Header="ChefControl" pHeader="Pedidos" />
-      
-      {/* O ícone de Home agora chama a função de logout corrigida */}
-      <FaHome onClick={handleLogout} className="logoutIcon" /> 
+      <div className="header-container">
+        <FaHome onClick={handleLogout} className="home-icon" />
+        <HeaderPages h1Header="ChefControl" pHeader="Pedidos" />
+      </div>
 
       <div className="ContainerFormRequests">
         <form onSubmit={handleSubmitOrder} className="formRequest">

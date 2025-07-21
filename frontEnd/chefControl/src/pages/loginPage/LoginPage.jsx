@@ -71,7 +71,7 @@ function LoginPage() {
 
         {error && <p className="login-error-message">{error}</p>}
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className="loginForm">
           <div className="inputEmail">
             <HiOutlineMail />
             <input

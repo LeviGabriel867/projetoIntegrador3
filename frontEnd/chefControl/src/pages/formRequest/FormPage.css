@@ -1,3 +1,4 @@
+/* Container principal */
 .ConteinerFormPage {
   height: 100vh;
   background-color: #ffde59;
@@ -5,24 +6,64 @@
   flex-direction: column;
   align-items: center;
   font-family: sans-serif;
-  padding-top: 40px;
+  padding: 20px;
+  position: relative;
 }
 
-/* Container do formulário */
+/* Container do cabeçalho */
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Centraliza o conteúdo */
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+/* Ícone de home/logout */
+.home-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #333;
+  transition: all 0.3s ease;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.home-icon:hover {
+  color: #f78e3d;
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Container do texto centralizado */
+.header-text {
+  text-align: center;
+}
+
+/* Restante do CSS mantido */
 .ContainerFormRequests {
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
   max-width: 320px;
   padding: 0 20px;
 }
 
-form {
+.formRequest {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* Agrupamento dos ícones com inputs */
+/* ... (mantenha o resto do seu CSS existente) ... */
+
 .inputGroup {
   display: flex;
   align-items: center;
@@ -32,15 +73,11 @@ form {
   gap: 10px;
 }
 
-/* Ícones */
 .inputGroup svg {
   font-size: 20px;
   color: #666;
-    background-color: #f0f0f0;
-
 }
 
-/* Campos de texto */
 .inputGroup input {
   border: none;
   background: transparent;
@@ -50,9 +87,7 @@ form {
   flex: 1;
 }
 
-/* Botão de envio */
-form button{
-  display: flex;
+form button {
   background-color: #f78e3d;
   border: none;
   padding: 12px;
@@ -63,18 +98,19 @@ form button{
   margin: 0 auto;
   width: 60%;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-form button:hover, .buttonOrder:hover {
+form button:hover,
+.buttonOrder:hover {
   background-color: #e5782c;
-  transform: scale(1.1);
-  transition: 0.3s;
+  transform: scale(1.05);
 }
-.buttonOrder{
-  display: flex;
+
+.buttonOrder {
   background-color: #f78e3d;
   border: none;
   padding: 12px;
@@ -82,48 +118,37 @@ form button:hover, .buttonOrder:hover {
   color: #fff;
   font-weight: bold;
   font-size: 14px;
-  margin: 0 auto;
+  margin: 20px auto 0;
   width: 50%;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-    margin-top: 1rem;
-
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mensagem-enviada {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background-color: #d4edda;
-    color: #155724;
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    animation: fadeInOut 2s ease-in-out forwards;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  animation: fadeInOut 2s ease-in-out forwards;
 }
 
 .icone-check {
-    font-size: 20px;
-    color: #28a745;
+  font-size: 20px;
+  color: #28a745;
 }
 
 @keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    20% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    80% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
+  0% { opacity: 0; transform: translateY(-10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
 }
