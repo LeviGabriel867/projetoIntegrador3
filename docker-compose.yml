@@ -1,34 +1,50 @@
+# docker-compose.yml (VERSÃO ATUALIZADA)
+
 version: "3.9"
+
 services:
-  backend:
-    build: ./backend
+  # Serviço do Banco de Dados MongoDB
+  mongo:
+    image: mongo:latest # Usamos a imagem oficial do MongoDB
+    container_name: chefcontrol-mongo
     ports:
-      - "3000:3000"
+      - "27017:27017" # Mapeia a porta do MongoDB para seu computador
     volumes:
-      - ./backend:/app
-      - /app/node_modules
+      - mongo-data:/data/db # Persiste os dados do banco em um volume do Docker
+    restart: unless-stopped
+
+  # Serviço do Backend
+  backend:
+    build:
+      context: ./backEnd # O contexto de build é a pasta backEnd
+      dockerfile: Dockerfile
+    container_name: chefcontrol-backend
+    ports:
+      - "3000:3000" # Ajustamos a porta para 3000 para corresponder à sua configuração
     environment:
+      # Injetamos as variáveis de ambiente aqui. Elas sobrescrevem o .env
       - NODE_ENV=development
+      - PORT=3000
+      # A URI agora aponta para o serviço 'mongo' na rede do Docker
       - MONGO_URI=mongodb://mongo:27017/lifefit
     depends_on:
-      - mongo
+      - mongo # Garante que o backend só inicie DEPOIS que o mongo estiver pronto
+    restart: unless-stopped
 
+  # Serviço do Frontend
   frontend:
-    build: ./frontend/chefControl
+    build:
+      context: ./frontEnd/chefControl # O contexto aponta para a subpasta correta
+      dockerfile: Dockerfile
+    container_name: chefcontrol-frontend
     ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend/chefControl:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
+      - "5173:5173" # Mapeia a porta do Vite
+    # 'volumes' em desenvolvimento é útil para hot-reloading, mas não é estritamente necessário
+    # se você reconstruir a imagem. Para simplicidade, vamos removê-lo por enquanto.
+    depends_on:
+      - backend # Garante que o frontend só inicie depois do backend
+    restart: unless-stopped
 
 volumes:
-  mongo-data:
+  mongo-data: # Define o volume nomeado para persistir os dados do MongoDB
+    driver: local
