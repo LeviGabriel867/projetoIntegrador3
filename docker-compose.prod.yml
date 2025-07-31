@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build:
+      context: ./backEnd
+      dockerfile: Dockerfile 
+    container_name: prod-chefcontrol-backend
+    ports:
+      - "3000:3000" 
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGO_URI=${MONGO_URI} 
+
+  frontend:
+    build:
+      context: ./frontEnd/chefControl
+      dockerfile: Dockerfile 
+    container_name: prod-chefcontrol-frontend
+    ports:
+      - "4000:80" 
+    depends_on:
+      - backend
+    env_file:
+      - .env
