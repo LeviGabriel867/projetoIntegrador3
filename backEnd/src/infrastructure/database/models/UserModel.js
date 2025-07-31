@@ -1,4 +1,3 @@
-// infrastructure/database/models/UserModel.js
 
 import mongoose from 'mongoose';
 

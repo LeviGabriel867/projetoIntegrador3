@@ -33,7 +33,7 @@ export default class OrderController {
   async advanceStatus(request, response) {
     try {
       const { id } = request.params;
-      await this.advanceOrderStatusUseCase.execute(id); // Chama o novo use case
+      await this.advanceOrderStatusUseCase.execute(id); 
       return response.status(204).send();
     } catch (error) {
       return response.status(400).json({ message: error.message });
@@ -42,7 +42,6 @@ export default class OrderController {
 
    async update(request, response) {
     try {
-      // LOG DE DEPURACAO NO PONTO DE ENTRADA
       console.log(`[CONTROLLER] Requisição PATCH recebida para o ID: ${request.params.id}`);
 
       const { id } = request.params;
@@ -52,7 +51,6 @@ export default class OrderController {
       
       return response.status(204).send();
     } catch (error) {
-      // LOG DE DEPURACAO DO ERRO
       console.error(`[CONTROLLER] Erro no método update:`, error);
       return response.status(400).json({ message: error.message });
     }

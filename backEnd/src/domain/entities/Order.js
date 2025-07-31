@@ -3,7 +3,7 @@ export default class Order {
     this.id = id;
     this.mesa = mesa;
     this.descricao = descricao;
-    this.status = status;   // Usa o status passado corretamente
+    this.status = status;   
     this.createdAt = createdAt ? new Date(createdAt) : new Date();
   }
 }

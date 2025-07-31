@@ -1,4 +1,3 @@
-// src/domain/use-cases/advanceOrderStatus/AdvanceOrderStatusUseCase.js
 import orderEvents from '../../events/orderEvents.js';
 
 export default class AdvanceOrderStatusUseCase {

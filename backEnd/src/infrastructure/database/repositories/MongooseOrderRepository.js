@@ -3,13 +3,12 @@ import Order from "../../../domain/entities/Order.js";
 import { IOrderRepository } from "../../../domain/repositories/IOrderRepository.js";
 
 export default class MongooseOrderRepository extends IOrderRepository {
-  // Cria um novo pedido com status padrão 'EM_ESPERA'
   async create(orderData) {
     try {
       const newOrder = await OrderModel.create({
         mesa: orderData.mesa,
         descricao: orderData.descricao,
-        status: 'EM_ESPERA',  // status inicial fixo
+        status: 'EM_ESPERA', 
       });
       return new Order(newOrder.id, newOrder.mesa, newOrder.descricao, newOrder.status);
     } catch (error) {
@@ -18,7 +17,6 @@ export default class MongooseOrderRepository extends IOrderRepository {
     }
   }
 
-  // Busca pedidos aplicando filtros opcionais e ordena do mais novo para o mais antigo
   async find(filters = {}) {
     try {
       const ordersFromDB = await OrderModel.find(filters).sort({ createdAt: -1 }).exec();
@@ -31,7 +29,6 @@ export default class MongooseOrderRepository extends IOrderRepository {
     }
   }
 
-  // Busca um pedido pelo seu ID
   async findById(id) {
     try {
       const orderFromDB = await OrderModel.findById(id);
@@ -46,9 +43,8 @@ export default class MongooseOrderRepository extends IOrderRepository {
   }
 
   /**
-   * Atualiza um pedido por ID e retorna o pedido atualizado
-   * @param {string} id - ID do pedido
-   * @param {object} updateData - Campos para atualizar (ex: { status: 'PREPARANDO' })
+   * @param {string} id 
+   * @param {object} updateData
    * @returns {Promise<Order|null>}
    */
   async update(id, updateData) {

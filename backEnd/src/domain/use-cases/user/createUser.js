@@ -1,4 +1,3 @@
-// use-cases/user/CreateUser.js (EXEMPLO)
 
 import bcrypt from 'bcryptjs';
 
@@ -12,13 +11,12 @@ export default class CreateUser {
       throw new Error("Todos os campos são obrigatórios.");
     }
     
-    // Verificações de existência
     const emailExists = await this.userRepository.findByEmail(email);
     if (emailExists) {
         throw new Error("Este e-mail já está em uso.");
     }
 
-    const userNameExists = await this.userRepository.findByUserName(userName); // Usando o novo método
+    const userNameExists = await this.userRepository.findByUserName(userName); 
     if (userNameExists) {
         throw new Error("Este nome de usuário já está em uso.");
     }

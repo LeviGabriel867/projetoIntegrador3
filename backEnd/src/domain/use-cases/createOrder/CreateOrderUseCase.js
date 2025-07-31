@@ -1,4 +1,3 @@
-// src/domain/use-cases/createOrder/CreateOrderUseCase.js
 import orderEvents from '../../events/orderEvents.js';
 
 export default class CreateOrderUseCase {

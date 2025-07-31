@@ -1,5 +1,3 @@
-// domain/entities/User.js
-
 export default class User {
    constructor(id, name, userName, role, email, password) {
     this.id = id;

@@ -13,9 +13,8 @@ export const setupFactories = () => {
   const createOrderUseCase = new CreateOrderUseCase(orderRepository);
   const getActiveOrdersUseCase = new GetActiveOrdersUseCase(orderRepository);
   const advanceOrderStatusUseCase = new AdvanceOrderStatusUseCase(orderRepository);
-  const updateOrderUseCase = new UpdateOrderUseCase(orderRepository); // <<< INSTANCIAR
+  const updateOrderUseCase = new UpdateOrderUseCase(orderRepository); 
 
-  // Injeta o novo Use Case no Controller
   const orderController = new OrderController(
     createOrderUseCase,
     getActiveOrdersUseCase,

@@ -1,7 +1,5 @@
-// controllers/UserController.js
 
 export default class UserController {
-  // Agora o construtor recebe os dois casos de uso
   constructor(createUser, loginUser) {
     this.createUser = createUser;
     this.loginUser = loginUser;
@@ -18,14 +16,12 @@ export default class UserController {
     }
   }
 
-  // NOVO MÉTODO: Login
   async login(req, res) {
     try {
       const { email, password } = req.body;
       const result = await this.loginUser.execute({ email, password });
-      res.status(200).json(result); // Envia o objeto { token: '...' }
+      res.status(200).json(result); 
     } catch (err) {
-      // 401 Unauthorized é o status HTTP correto para credenciais inválidas
       res.status(401).json({ error: err.message });
     }
   }

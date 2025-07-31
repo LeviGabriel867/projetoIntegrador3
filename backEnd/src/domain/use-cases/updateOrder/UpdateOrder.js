@@ -53,7 +53,6 @@ export default class UpdateOrderUseCase {
       updatedAt: new Date().toISOString()
     };
 
-    // 6. Verificação e emissão do evento
     console.log(`[USE CASE] Verificando listeners para orderUpdated...`);
     const listenerCount = orderEvents.listenerCount('orderUpdated');
     console.log(`[USE CASE] Listeners ativos: ${listenerCount}`);
