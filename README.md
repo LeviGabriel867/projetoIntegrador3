@@ -1,5 +1,5 @@
 ### ChefControl
-
+##Figma: https://www.figma.com/design/fsmEQ2bmZ5WYFDGjSioQ7R/Projeto-Integrador-3?node-id=102-2&t=MJT5FRABg9hxFol1-1
 ## Descrição do Projeto
 
 O ChefControl é uma aplicação web completa, desenvolvida com React no frontend e Node.js no backend, para gerenciar pedidos em um ambiente de restaurante de forma eficiente. O sistema permite a criação e visualização de pedidos em tempo real por garçons e oferece um painel administrativo para gerenciamento de colaboradores. A aplicação é totalmente containerizada usando Docker para facilitar o desenvolvimento, implantação e escalabilidade.
