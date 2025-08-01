@@ -33,6 +33,7 @@ O ChefControl é uma aplicação web completa, desenvolvida com React no fronten
 * *Containerização:* Docker e Docker Compose
 * *Servidor Web (Produção):* Nginx
 * *Package Manager:* npm
+* *Comunicação em Tempo Real:* WebSockets.
 
 ## Como Iniciar o Projeto (Desenvolvimento)
 
