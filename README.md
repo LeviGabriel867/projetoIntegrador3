@@ -54,8 +54,8 @@ O ChefControl é uma aplicação web completa, desenvolvida com React no fronten
     
 
 4.  *Inicie os containers:*
-    bash
-    docker-compose up --build
+    *docker-composse up --build*
+
     
     Este comando irá:
     * Construir e iniciar o container mongo.
@@ -68,7 +68,7 @@ O ChefControl é uma aplicação web completa, desenvolvida com React no fronten
 ## Como Iniciar o Projeto (Produção)
 
 1.  *Construa o projeto:*
-    O docker-compose.prod.yml usa os Dockerfile do frontend e backend para construir as imagens de produção.
+    O *docker-compose -f docker-compose.prod.yml up --build* usa os Dockerfile do frontend e backend para construir as imagens de produção.
     * O Dockerfile do frontend constrói o projeto com Vite (npm run build) e o serve usando um container Nginx.
     * O Dockerfile do backend constrói a imagem e a executa.
 
@@ -81,11 +81,9 @@ O ChefControl é uma aplicação web completa, desenvolvida com React no fronten
     
 
 3.  *Inicie os containers de produção:*
-    bash
-    docker-compose -f docker-compose.prod.yml up --build -d
+    docker-compose -f docker-compose.prod.yml up --build
+
     
-    Este comando irá iniciar a aplicação em modo de produção. O frontend estará disponível na porta 4000.
+    Este comando irá iniciar a aplicação em modo de produção. O frontend estará disponível na porta 4000. Verifique dentro do seu docker Desktop se os 3 conteiners estão funcionado. 
 
-## Informações Adicionais
 
-* *Chave Secreta JWT:* A chave secreta usada para assinar os tokens JWT está hardcoded como 'SEU_SEGREDO_SUPER_SECRETO_AQUI' nos arquivos authMiddleware.js e LoginUser.js. Em um ambiente de produção, é *altamente recomendável* que esta chave seja armazenada de forma segura em uma variável de ambiente e nunca seja exposta no código-fonte.
