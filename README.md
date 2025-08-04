@@ -86,4 +86,4 @@ O ChefControl é uma aplicação web completa, desenvolvida com React no fronten
     
     Este comando irá iniciar a aplicação em modo de produção. O frontend estará disponível na porta 4000. Verifique dentro do seu docker Desktop se os 3 conteiners estão funcionado. 
 
-
+4. Credenciais para acesso ao sistema: <br/>administradorTemperoDaCasa@gmail.com <br/> senha123
