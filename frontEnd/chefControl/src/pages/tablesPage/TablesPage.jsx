@@ -12,7 +12,7 @@ function TablesPage() {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingOrder, setEditingOrder] = useState(null);
-  const [lastUpdatedId, setLastUpdatedId] = useState(null); // Estado adicionado
+  const [lastUpdatedId, setLastUpdatedId] = useState(null); 
 
   const navigate = useNavigate();
 
@@ -68,7 +68,6 @@ function TablesPage() {
 
     const eventSource = new EventSource("http://localhost:3000/api/orders/stream");
 
-    // Listener específico para orderUpdated
     eventSource.addEventListener('orderUpdated', (event) => {
       const updatedOrder = JSON.parse(event.data);
       setLastUpdatedId(updatedOrder.id);
@@ -87,7 +86,6 @@ function TablesPage() {
         return [updatedOrder, ...prevOrders];
       });
 
-      // Remove o destaque após 1.5 segundos
       setTimeout(() => setLastUpdatedId(null), 1500);
     });
 

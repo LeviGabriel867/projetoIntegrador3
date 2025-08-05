@@ -8,7 +8,7 @@ import './FormEmployee.css';
 function FormEmployee() {
   const [name, setName] = useState('');
   const [userName, setUserName] = useState('');
-  const [role, setRole] = useState('garcom'); // Valor padrão ainda pode ser garçom
+  const [role, setRole] = useState('garcom'); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
@@ -77,7 +77,6 @@ function FormEmployee() {
             </div>
           )}
 
-          {/* Campos de input (name, userName, email, password) permanecem os mesmos */}
           <div className="form-input-group">
             <FaUser className="input-icon" />
             <input type="text" placeholder="Nome completo" value={name} onChange={(e) => setName(e.target.value)} required disabled={isLoading} />
@@ -95,7 +94,6 @@ function FormEmployee() {
             <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} required minLength="6" disabled={isLoading} />
           </div>
 
-          {/* --- ATUALIZAÇÃO AQUI --- */}
           <div className="form-input-group">
             <FaBriefcase className="input-icon" />
             <select 
@@ -106,7 +104,6 @@ function FormEmployee() {
             >
               <option value="garcom">Garçom</option>
               <option value="admin">Administrador</option>
-              {/* Adicione outras roles se seu backend suportar */}
             </select>
           </div>
 

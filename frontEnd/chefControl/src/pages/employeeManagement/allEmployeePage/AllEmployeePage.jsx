@@ -1,4 +1,3 @@
-// src/pages/AllEmployeePage/AllEmployeePage.jsx
 
 import React, { useState, useCallback } from 'react';
 import EmployeeItem from '../../../components/EmployeeItem';
@@ -23,7 +22,6 @@ function AllEmployeePage() {
 
   const handleEdit = useCallback((id) => {
     console.log(`Editar funcionário com ID: ${id}`);
-    // A lógica para abrir um modal de edição iria aqui.
   }, []);
 
   const handleAdd = () => {

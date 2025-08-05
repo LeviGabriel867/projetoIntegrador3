@@ -1,4 +1,3 @@
-// src/pages/loginPage/LoginPage.jsx
 
 import React, { useState } from "react";
 import "./LoginPage.css";
@@ -39,14 +38,11 @@ function LoginPage() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        // --- ATUALIZAÇÃO AQUI ---
-        // Verificando a role "admin" para redirecionar
         if (data.user.role === "admin") {
-          navigate("/admin"); // Redireciona para a página de admin
+          navigate("/admin"); 
         } else if (data.user.role === "garcom") {
-          navigate("/waiter"); // Redireciona para a página do garçom
+          navigate("/waiter");
         } else {
-          // Fallback para uma página genérica, se necessário
           navigate("/homePage");
         }
       } else {

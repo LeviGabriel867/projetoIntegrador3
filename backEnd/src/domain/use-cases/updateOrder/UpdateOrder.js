@@ -7,13 +7,11 @@ export default class UpdateOrderUseCase {
   }
 
   async execute(orderId, updateData) {
-    // LOG 1: Veja no terminal o que está chegando no caso de uso.
     console.log(
       `[USE CASE - Update] Recebido para o ID ${orderId}:`,
       updateData
     );
 
-    // 1. Validação dos dados de entrada.
     if (updateData.mesa !== undefined && !updateData.mesa.trim()) {
       throw new Error("O campo 'mesa' não pode ser vazio.");
     }
@@ -21,13 +19,11 @@ export default class UpdateOrderUseCase {
       throw new Error("O campo 'descrição' não pode ser vazio.");
     }
 
-    // 2. Garante que o pedido existe.
     const orderToUpdate = await this.orderRepository.findById(orderId);
     if (!orderToUpdate) {
       throw new Error("Pedido não encontrado.");
     }
 
-    // 3. Cria um objeto limpo para atualização.
     const cleanUpdateData = {};
     if (updateData.mesa) cleanUpdateData.mesa = updateData.mesa;
     if (updateData.descricao) cleanUpdateData.descricao = updateData.descricao;
@@ -39,13 +35,11 @@ export default class UpdateOrderUseCase {
       throw new Error("Nenhum dado para atualizar foi fornecido.");
     }
 
-    // 4. Atualiza no repositório.
     const updatedOrder = await this.orderRepository.update(
       orderId,
       cleanUpdateData
     );
 
-    // 5. Preparação do evento com dados consistentes
     const eventData = {
       ...updatedOrder,
       id: updatedOrder._id ? updatedOrder._id.toString() : updatedOrder.id,

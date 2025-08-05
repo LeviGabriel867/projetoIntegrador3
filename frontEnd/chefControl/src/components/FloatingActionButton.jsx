@@ -1,4 +1,3 @@
-// src/components/FloatingActionButton.jsx
 
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';

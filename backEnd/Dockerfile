@@ -20,7 +20,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/src/app.js ./src/app.js  
-#ATENCAO ACIMA
 
 
 EXPOSE 3000

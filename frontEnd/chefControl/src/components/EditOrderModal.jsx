@@ -1,13 +1,10 @@
-// src/components/EditOrderModal/EditOrderModal.jsx
 
 import React, { useState, useEffect } from 'react';
-import './EditOrderModal.css'; // Criaremos este arquivo a seguir
+import './EditOrderModal.css';
 
 const EditOrderModal = ({ order, onClose, onSave }) => {
-  // Estado local para controlar os dados do formulário dentro do modal
   const [formData, setFormData] = useState({ mesa: '', descricao: '' });
 
-  // Quando o modal é aberto, preenche o formulário com os dados do pedido atual
   useEffect(() => {
     if (order) {
       setFormData({
@@ -17,7 +14,6 @@ const EditOrderModal = ({ order, onClose, onSave }) => {
     }
   }, [order]);
 
-  // Se nenhum pedido for passado (ou seja, o modal está fechado), não renderiza nada.
   if (!order) {
     return null;
   }
@@ -29,7 +25,6 @@ const EditOrderModal = ({ order, onClose, onSave }) => {
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
-    // Chama a função onSave passada pelo componente pai, enviando o ID e os novos dados.
     onSave(order.id, formData);
   };
 
